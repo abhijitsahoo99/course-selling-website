@@ -1,0 +1,17 @@
+.heading{
+    padding-top: 100px;
+    margin-bottom:10px ;
+    display: flex;
+    justify-content: center;
+}
+
+.box{
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    width: 400px;
+    padding: 30px;
+}
+

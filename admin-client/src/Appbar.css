@@ -1,0 +1,6 @@
+.appbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px;
+    /* background-color: #1976d2; */
+}
