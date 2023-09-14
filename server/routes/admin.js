@@ -55,7 +55,6 @@ router.post('/signup', (req, res) => {
   
   router.put('/courses/:courseId', authenticateJwt, async (req, res) => {
     const course = await Course.findByIdAndUpdate(req.params.courseId, req.body, { new: true });
-    console.log(course)
     if (course) {
       res.json({ message: 'Course updated successfully' });
     } else {
