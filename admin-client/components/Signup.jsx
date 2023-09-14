@@ -3,8 +3,10 @@ import TextField from "@mui/material/TextField";
 import { Card, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
-function Signup() {
+function Signup({setUserEmail}) {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -54,7 +56,8 @@ function Signup() {
                 });
                 let data = response.data;
                 localStorage.setItem("token", data.token);
-                window.location = "/";
+                setUserEmail(email);
+                navigate("/courses")
               } 
               catch (error) {
                 if (error.response && error.response.status === 403) {

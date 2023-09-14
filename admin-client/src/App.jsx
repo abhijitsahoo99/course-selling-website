@@ -1,17 +1,36 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signin from "./Signin.jsx";
-import Signup from "./Signup.jsx";
-import Appbar from "./Appbar.jsx";
+import Signin from "../components/Signin.jsx";
+import Signup from "../components/Signup.jsx";
+import Appbar from "../components/Appbar.jsx";
 import AddCourse from "./AddCourse.jsx";
-import Courses from "./Courses";
+import Courses from "../components/Courses.jsx";
 // import Course from "./Course";
-// import { useEffect, useState } from 'react';
-// import axios from "axios";
-import Course from './Course.jsx';
-import Landing from './Landing.jsx';
+import { useEffect, useState } from 'react';
+import axios from "axios";
+import Course from '../components/Course.jsx';
+import Landing from '../components/Landing.jsx';
 
 
 function App() {
+    const [userEmail, setUserEmail] = useState(null);
+    console.log(userEmail);
+
+
+        const init = async() => {        
+        // console.log("token - " + localStorage.getItem("token"));
+        const response = await axios.get(`${BASE_URL}/admin/me`, {
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
+        if(response.data.username){
+            setUserEmail(response.data.username)
+        }
+    };
+
+    useEffect(() => {
+        init()
+    }, []);
 
     return (
         <div style={{width: "100vw",
@@ -19,15 +38,15 @@ function App() {
             backgroundColor: "#eeeeee"}}
         >
                 <Router>
-                    <Appbar />
+                    <Appbar userEmail = {userEmail} setUserEmail = {setUserEmail}/>
                     <Routes>
                         <Route path={"/addcourse"} element={<AddCourse />} />
                         <Route path={"/course/:courseId"} element={<Course />} />
                         <Route path={"/courses"} element={<Courses />} />
-                        <Route path={"/signin"} element={<Signin />} />
-                        <Route path={"/signup"} element={<Signup />} />
+                        <Route path={"/signin"} element={<Signin setUserEmail = {setUserEmail}/>} />
+                        <Route path={"/signup"} element={<Signup setUserEmail = {setUserEmail}/>} />
                         console.log("Welxome")
-                        <Route path={"/"} element={<Landing />} />
+                        <Route path={"/"} element={<Landing userEmail = {userEmail}/>} />
                     </Routes>
                 </Router>
 
