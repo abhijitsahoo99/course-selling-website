@@ -8,7 +8,6 @@ import {BASE_URL} from "./config.js";
 function Appbar() {
     const navigate = useNavigate()
     const [userEmail, setUserEmail] = useState(null);
-    console.log("Hello world!");
     console.log(userEmail);
 
 
@@ -26,7 +25,6 @@ function Appbar() {
 
     useEffect(() => {
         init()
-        console.log("useEffect initiated successfully")
     }, []);
 
     if (userEmail) {

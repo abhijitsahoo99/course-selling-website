@@ -8,6 +8,7 @@ import Courses from "./Courses";
 // import { useEffect, useState } from 'react';
 // import axios from "axios";
 import Course from './Course.jsx';
+import Landing from './Landing.jsx';
 
 
 function App() {
@@ -18,15 +19,15 @@ function App() {
             backgroundColor: "#eeeeee"}}
         >
                 <Router>
-                {console.log("Appbar rendered1")}
                     <Appbar />
-                    {console.log("Appbar rendered2")}
                     <Routes>
                         <Route path={"/addcourse"} element={<AddCourse />} />
                         <Route path={"/course/:courseId"} element={<Course />} />
                         <Route path={"/courses"} element={<Courses />} />
                         <Route path={"/signin"} element={<Signin />} />
                         <Route path={"/signup"} element={<Signup />} />
+                        console.log("Welxome")
+                        <Route path={"/"} element={<Landing />} />
                     </Routes>
                 </Router>
 
