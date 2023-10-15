@@ -3,55 +3,75 @@ import Signin from "./components/Signin.jsx";
 import Signup from "./components/Signup.jsx";
 import Appbar from "./components/Appbar.jsx";
 import AddCourse from "./components/AddCourse.jsx";
-import Courses from "./components/Courses.jsx";
-// import Course from "./Course";
-import { useEffect, useState } from 'react';
+import Courses from "./components/Courses";
+import Course from "./components/Course";
+import Landing from "./components/Landing.jsx"
+import { userState } from "./store/atoms/user.js";
+import {RecoilRoot,useSetRecoilState} from 'recoil';
 import axios from "axios";
-import Course from './components/Course.jsx';
-import Landing from './components/Landing.jsx';
-
+import {BASE_URL} from "./config.js";
+import {useEffect} from "react";
 
 function App() {
-    const [userEmail, setUserEmail] = useState(null);
-    console.log(userEmail);
+    return (
+        <RecoilRoot>
+            <div style={{width: "100vw",
+                height: "100vh",
+                backgroundColor: "#eeeeee"}}
+            >
+                    <Router>
+                        <Appbar />
+                        <InitUser />
+                        <Routes>
+                            <Route path={"/addcourse"} element={<AddCourse />} />
+                            <Route path={"/course/:courseId"} element={<Course />} />
+                            <Route path={"/courses"} element={<Courses />} />
+                            <Route path={"/signin"} element={<Signin />} />
+                            <Route path={"/signup"} element={<Signup />} />
+                            <Route path={"/"} element={<Landing />} />
+                        </Routes>
+                    </Router>
+            </div>
+        </RecoilRoot>
+    );
+}
 
 
-        const init = async() => {        
-        // console.log("token - " + localStorage.getItem("token"));
-        const response = await axios.get(`${BASE_URL}/admin/me`, {
-            headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
+function InitUser() {
+    const setUser = useSetRecoilState(userState);
+    const init = async() => {
+        try {
+            const response = await axios.get($,{BASE_URL}/admin/me, {
+                headers: {
+                    "Authorization": "Bearer " + localStorage.getItem("token")
+                }
+            })
+
+            if (response.data.username) {
+                setUser({
+                    isLoading: false,
+                    userEmail: response.data.username
+                })
+            } else {
+                setUser({
+                    isLoading: false,
+                    userEmail: null
+                })
             }
-        })
-        if(response.data.username){
-            setUserEmail(response.data.username)
+        } catch (e) {
+
+            setUser({
+                isLoading: false,
+                userEmail: null
+            })
         }
     };
 
     useEffect(() => {
-        init()
+        init();
     }, []);
 
-    return (
-        <div style={{width: "100vw",
-            height: "100vh",
-            backgroundColor: "#eeeeee"}}
-        >
-                <Router>
-                    <Appbar userEmail = {userEmail} setUserEmail = {setUserEmail}/>
-                    <Routes>
-                        <Route path={"/addcourse"} element={<AddCourse />} />
-                        <Route path={"/course/:courseId"} element={<Course />} />
-                        <Route path={"/courses"} element={<Courses />} />
-                        <Route path={"/signin"} element={<Signin setUserEmail = {setUserEmail}/>} />
-                        <Route path={"/signup"} element={<Signup setUserEmail = {setUserEmail}/>} />
-                        console.log("Welxome")
-                        <Route path={"/"} element={<Landing userEmail = {userEmail}/>} />
-                    </Routes>
-                </Router>
-
-        </div>
-    );
+    return <></>
 }
 
 export default App;

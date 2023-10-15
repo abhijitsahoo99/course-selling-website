@@ -1,23 +1,23 @@
 import { Button, Card, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import {useNavigate} from "react-router-dom";
+import { BASE_URL } from "../config.js";
+import axios from "axios";
 
 function Courses() {
     const [courses, setCourses] = useState([]);
-    
-    useEffect(() => {
-        function callback2(data) {
-            setCourses(data.courses);
-        }
-        function callback1(res) {
-            res.json().then(callback2)
-        }
-        fetch("http://localhost:3000/admin/courses/", {
-            method: "GET",
+
+    const init = async () => {
+        const response = await axios.get(`${BASE_URL}/admin/courses/`, {
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("token")
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             }
-        }).then(callback1)
+        })
+        setCourses(response.data.courses)
+    }
+
+    useEffect(() => {
+        init();
     }, []);
 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
@@ -29,7 +29,8 @@ function Courses() {
 
 export function Course({course}) {
     const navigate = useNavigate();
-     return <Card style={{
+
+    return <Card style={{
         margin: 10,
         width: 300,
         minHeight: 200,
@@ -46,7 +47,5 @@ export function Course({course}) {
     </Card>
 
 }
-
-
 
 export default Courses;
