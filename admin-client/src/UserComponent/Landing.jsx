@@ -20,13 +20,13 @@ const LandingUser = () => {
                     <Typography variant={"h5"}>
                         Start, switch, or advance your career with courses, Professional Certificates, and degrees from world-class universities and companies.
                     </Typography>
-                    {!userLoading && !userEmail && <div style={{display: "flex", marginTop: 20}}>
+                    {<div style={{display: "flex", marginTop: 20}}>
                         <div style={{marginRight: 10}}>
                             <Button
                                 size={"large"}
                                 variant={"contained"}
                                 onClick={() => {
-                                    navigate("/signup")
+                                    navigate("/signupuser")
                                 }}
                             >Signup</Button>
                         </div>
@@ -35,7 +35,7 @@ const LandingUser = () => {
                                 size={"large"}
                                 variant={"contained"}
                                 onClick={() => {
-                                    navigate("/signin")
+                                    navigate("/signinuser")
                                 }}
                             >Signin</Button>
                         </div>

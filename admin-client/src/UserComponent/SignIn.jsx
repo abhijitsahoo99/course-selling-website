@@ -6,13 +6,34 @@ import axios from "axios";
 import { BASE_URL } from "../config.js";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { adminState } from "../store/atoms/Admin.js";
+import { userState } from "../store/atoms/User.js";
 
-function SignupAdmin() {
+function SigninUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const setAdmin = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
+
+  const [error, setError] = useState(null);
+
+  const handleSignIn = async () => {
+    try {
+      const response = await axios.post(`${BASE_URL}/user/login`, {
+        username: email,
+        password: password,
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        localStorage.setItem("token", data.token);
+        setUser({ userEmail: email, isLoading: false });
+        navigate("/courses");
+      }
+    } catch (error) {
+      setError("User not found. Please sign up.");
+      alert("User not found. Please sign up.");
+    }
+  };
 
   return (
     <div>
@@ -25,11 +46,11 @@ function SignupAdmin() {
         }}
       >
         <Typography variant={"h6"}>
-          Welcome to EduCourse. Sign up below
+          Welcome back to EduCourse. Sign in below.
         </Typography>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Card varint={"outlined"} style={{ width: 400, padding: 20 }}>
+        <Card variant={"outlined"} style={{ width: 400, padding: 20 }}>
           <TextField
             onChange={(event) => {
               setEmail(event.target.value);
@@ -51,30 +72,15 @@ function SignupAdmin() {
           />
           <br />
           <br />
-
-          <Button
-            size={"large"}
-            variant="contained"
-            onClick={async () => {
-              const response = await axios.post(`${BASE_URL}/admin/signup`, {
-                username: email,
-                password: password,
-              });
-              let data = response.data;
-              localStorage.setItem("token", data.token);
-              // window.location = "/"
-
-              setAdmin({ userEmail: email, isLoading: false });
-              navigate("/courses");
-            }}
-          >
+          <Button size={"large"} variant="contained" onClick={handleSignIn}>
             {" "}
-            Signup
+            Sign In
           </Button>
+          {error && <div style={{ color: "red", marginTop: 10 }}>{error}</div>}
         </Card>
       </div>
     </div>
   );
 }
 
-export default SignupAdmin;
+export default SigninUser;

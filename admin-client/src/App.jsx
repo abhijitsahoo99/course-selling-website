@@ -1,14 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingMain from "./LandingMain.jsx";
 import LandingAdmin from "./AdminComponent/Landing.jsx";
-import LandingUser from "./UserComponent/LandingUser.jsx";
+import LandingUser from "./UserComponent/Landing.jsx";
 import SigninAdmin from "./AdminComponent/Signin.jsx";
 import SignupAdmin from "./AdminComponent/Signup.jsx";
+import SigninUser from "./UserComponent/SignIn.jsx";
+import SignupUser from "./UserComponent/SignUp.jsx";
 import Appbar from "./Appbar.jsx";
 import AddCourse from "./AdminComponent/AddCourse.jsx";
 import Courses from "./AdminComponent/Courses.jsx";
 import Course from "./AdminComponent/Course.jsx";
-import { userState } from "./store/atoms/user.js";
+import { adminState } from "./store/atoms/Admin.js";
 import { RecoilRoot, useSetRecoilState } from "recoil";
 import axios from "axios";
 import { BASE_URL } from "./config.js";
@@ -32,6 +34,8 @@ function App() {
             <Route path={"/signinadmin"} element={<SigninAdmin />} />
             <Route path={"/signupadmin"} element={<SignupAdmin />} />
             <Route path={"/user"} element={<LandingUser />} />
+            <Route path={"/signinuser"} element={<SigninUser />} />
+            <Route path={"/signupuser"} element={<SignupUser />} />
           </Routes>
         </Router>
       </div>
@@ -40,7 +44,7 @@ function App() {
 }
 
 function InitUser() {
-  const setUser = useSetRecoilState(userState);
+  const setAdmin = useSetRecoilState(adminState);
   const init = async () => {
     try {
       const response = await axios.get($, { BASE_URL } / admin / me, {
@@ -50,20 +54,20 @@ function InitUser() {
       });
 
       if (response.data.username) {
-        setUser({
+        setAdmin({
           isLoading: false,
-          userEmail: response.data.username,
+          adminEmail: response.data.username,
         });
       } else {
-        setUser({
+        setAdmin({
           isLoading: false,
-          userEmail: null,
+          adminEmail: null,
         });
       }
     } catch (e) {
-      setUser({
+      setAdmin({
         isLoading: false,
-        userEmail: null,
+        adminEmail: null,
       });
     }
   };

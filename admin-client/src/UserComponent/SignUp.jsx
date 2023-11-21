@@ -6,13 +6,13 @@ import axios from "axios";
 import { BASE_URL } from "../config.js";
 import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
-import { adminState } from "../store/atoms/Admin.js";
+// import { userState } from "../store/atoms/User.js"
 
-function SignupAdmin() {
+function SignupUser() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const setAdmin = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(userState);
 
   return (
     <div>
@@ -56,7 +56,7 @@ function SignupAdmin() {
             size={"large"}
             variant="contained"
             onClick={async () => {
-              const response = await axios.post(`${BASE_URL}/admin/signup`, {
+              const response = await axios.post(`${BASE_URL}/user/signup`, {
                 username: email,
                 password: password,
               });
@@ -64,7 +64,7 @@ function SignupAdmin() {
               localStorage.setItem("token", data.token);
               // window.location = "/"
 
-              setAdmin({ userEmail: email, isLoading: false });
+              setUser({ userEmail: email, isLoading: false });
               navigate("/courses");
             }}
           >
@@ -77,4 +77,4 @@ function SignupAdmin() {
   );
 }
 
-export default SignupAdmin;
+export default SignupUser;

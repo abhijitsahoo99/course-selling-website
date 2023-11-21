@@ -1,23 +1,22 @@
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { isUserLoading } from "./store/selectors/isUserLoading";
+import { isAdminLoading } from "./store/selectors/isAdminLoading";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { userState } from "./store/atoms/user.js";
-import { userEmailState } from "./store/selectors/userEmail";
-
+import { adminState } from "./store/atoms/Admin.js";
+import { adminEmailState } from "./store/selectors/adminEmail";
 
 function Appbar() {
   const navigate = useNavigate();
-  const userLoading = useRecoilValue(isUserLoading);
-  const userEmail = useRecoilValue(userEmailState);
-  const setUser = useSetRecoilState(userState);
+  const adminLoading = useRecoilValue(isAdminLoading);
+  const adminEmail = useRecoilValue(adminEmailState);
+  const setAdmin = useSetRecoilState(adminState);
 
-  if (userLoading) {
+  if (adminLoading) {
     return <></>;
   }
 
-  if (userEmail) {
+  if (adminEmail) {
     return (
       <div
         style={{
@@ -62,9 +61,9 @@ function Appbar() {
               variant={"contained"}
               onClick={() => {
                 localStorage.setItem("token", null);
-                setUser({
+                setAdmin({
                   isLoading: false,
-                  userEmail: null,
+                  adminEmail: null,
                 });
                 navigate("/");
               }}
@@ -75,8 +74,7 @@ function Appbar() {
         </div>
       </div>
     );
-  } 
-  else {
+  } else {
     return (
       <div
         style={{
