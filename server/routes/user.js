@@ -1,6 +1,6 @@
 const express = require('express');
 const { authenticateJwt, SECRET } = require("../middleware/auth");
-const { User, Course, Admin } = require("../db");
+const { User, Course } = require("../db");
 const router = express.Router();
 
   router.post('/signup', async (req, res) => {

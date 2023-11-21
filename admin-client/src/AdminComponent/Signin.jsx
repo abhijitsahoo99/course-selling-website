@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import { userState } from "../store/atoms/user.js";
 
-function Signin() {
+function SigninAdmin() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ function Signin() {
             } 
         } catch (error) {
             setError("User not found. Please sign up.");
+            alert("User not found. Please sign up.");
         }
     };
 
@@ -79,4 +80,4 @@ function Signin() {
     );
 }
 
-export default Signin;
+export default SigninAdmin;

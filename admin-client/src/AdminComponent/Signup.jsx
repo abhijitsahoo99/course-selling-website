@@ -8,7 +8,7 @@ import {useNavigate} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
 import {userState} from "../store/atoms/user.js";
 
-function Signup() {
+function SignupAdmin() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
@@ -63,10 +63,10 @@ function Signup() {
                         navigate("/courses")
                     }}
 
-                > Signup</Button>
+                > SignupAdmin</Button>
             </Card>
         </div>
     </div>
 }
 
-export default Signup;
+export default SignupAdmin;

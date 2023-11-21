@@ -1,6 +1,7 @@
 import { Card, Grid } from "@mui/material";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { Typography, TextField, Button } from "@mui/material";
 import axios from "axios";
 import {Loading} from "./Loading";
@@ -10,9 +11,13 @@ import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import { courseTitle, coursePrice, isCourseLoading, courseImage } from "../store/selectors/course";
 
 function Course() {
+    const navigate = useNavigate()
     let { courseId } = useParams();
     const setCourse = useSetRecoilState(courseState);
     const courseLoading = useRecoilValue(isCourseLoading);
+    // const setUser = useSetRecoilState(userState);
+
+
 
     useEffect(() => {
         axios.get(`${BASE_URL}/admin/course/${courseId}`, {
@@ -136,6 +141,7 @@ function UpdateCard() {
                         price
                     };
                     setCourse({course: updatedCourse, isLoading: false});
+                    navigate("/courses")
                 }}
             > Update course</Button>
         </div>
