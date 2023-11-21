@@ -27,7 +27,7 @@ function SigninUser() {
         const data = response.data;
         localStorage.setItem("token", data.token);
         setUser({ userEmail: email, isLoading: false });
-        navigate("/courses");
+        navigate("/coursesuser");
       }
     } catch (error) {
       setError("User not found. Please sign up.");

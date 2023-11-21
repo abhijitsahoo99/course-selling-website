@@ -65,7 +65,7 @@ function SignupAdmin() {
               // window.location = "/"
 
               setAdmin({ userEmail: email, isLoading: false });
-              navigate("/courses");
+              navigate("/coursesadmin");
             }}
           >
             {" "}

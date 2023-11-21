@@ -65,7 +65,7 @@ function SignupUser() {
               // window.location = "/"
 
               setUser({ userEmail: email, isLoading: false });
-              navigate("/courses");
+              navigate("/coursesuser");
             }}
           >
             {" "}

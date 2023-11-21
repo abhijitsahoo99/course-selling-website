@@ -8,7 +8,9 @@ import SigninUser from "./UserComponent/SignIn.jsx";
 import SignupUser from "./UserComponent/SignUp.jsx";
 import Appbar from "./Appbar.jsx";
 import AddCourse from "./AdminComponent/AddCourse.jsx";
-import Courses from "./AdminComponent/Courses.jsx";
+import CoursesAdmin from "./AdminComponent/Courses.jsx";
+import CoursesUser from "./UserComponent/Courses.jsx";
+import BillingInfo from './UserComponent/BillingInfo.jsx';
 import Course from "./AdminComponent/Course.jsx";
 import { adminState } from "./store/atoms/Admin.js";
 import { RecoilRoot, useSetRecoilState } from "recoil";
@@ -30,12 +32,14 @@ function App() {
             <Route path={"/admin"} element={<LandingAdmin />} />
             <Route path={"/addcourse"} element={<AddCourse />} />
             <Route path={"/course/:courseId"} element={<Course />} />
-            <Route path={"/courses"} element={<Courses />} />
+            <Route path={"/coursesadmin"} element={<CoursesAdmin />} />
             <Route path={"/signinadmin"} element={<SigninAdmin />} />
             <Route path={"/signupadmin"} element={<SignupAdmin />} />
             <Route path={"/user"} element={<LandingUser />} />
             <Route path={"/signinuser"} element={<SigninUser />} />
             <Route path={"/signupuser"} element={<SignupUser />} />
+            <Route path={"/coursesuser"} element={<CoursesUser />} />
+            <Route path={"/billingInfo"} element={<BillingInfo />} />
           </Routes>
         </Router>
       </div>

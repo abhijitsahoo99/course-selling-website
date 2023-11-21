@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import { BASE_URL } from "../config.js";
 import axios from "axios";
 
-function CoursesAdmin() {
+function CoursesUser() {
     const [courses, setCourses] = useState([]);
 
     const init = async () => {
@@ -21,14 +21,14 @@ function CoursesAdmin() {
     }, []);
 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
-          {courses.map(course => {
+        {courses.map(course => {
             return <Course course={course} />}
         )}
     </div>
 }
 
-    export function Course({course}) {
-    const navigate = useNavigate(); 
+export function Course({course}) {
+    const navigate = useNavigate();
 
     return <Card style={{
         margin: 10,
@@ -41,12 +41,12 @@ function CoursesAdmin() {
         <img src={course.imageLink} style={{width: 300}} ></img>
         <div style={{display: "flex", justifyContent: "space-between", marginTop: 20}}>
             <Button variant="contained" size="large" onClick={() => {
-                navigate("/course/" + course._id);
-            }}>Edit</Button>
+                navigate("/billingInfo");
+            }}>Buy Now</Button>
             <Typography variant="h5">{course.price}</Typography>
         </div>
     </Card>
 
 }
 
-export default CoursesAdmin;
+export default CoursesUser;
